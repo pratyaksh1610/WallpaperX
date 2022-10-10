@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#171717"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -35,12 +35,12 @@
 
             <ImageView
                 android:id="@+id/homeImg"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_home"
-                app:tint="#3c3c3c" />
+                app:tint="#c8d0d6" />
 
         </LinearLayout>
 
@@ -53,12 +53,12 @@
 
             <ImageView
                 android:id="@+id/collectionsImg"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_collections"
-                app:tint="#3c3c3c" />
+                app:tint="#c8d0d6" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,12 +70,12 @@
 
             <ImageView
                 android:id="@+id/favouritesImg"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_favorites"
-                app:tint="#3c3c3c" />
+                app:tint="#c8d0d6" />
 
         </LinearLayout>
 

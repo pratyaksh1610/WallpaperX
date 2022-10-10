@@ -1,15 +1,23 @@
 package com.company_name.wallpaperx.Retrofit
 
-import Photos
+import com.company_name.wallpaperx.DataClass.Photo
+import com.company_name.wallpaperx.DataClass.PhotoByQuery
+import com.company_name.wallpaperx.DataClass.urls
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiInterface {
 
-    private val apiKey: String
-        get() = "18175286-6ea9f30b33434ad3b0d812729"
+    //all queries using the base url
 
-    @GET("/api/?key=18175286-6ea9f30b33434ad3b0d812729")
-    fun getPhotos() : Call<List<Photos>>
+    @GET("/photos/?per_page=100&client_id=3IgfYBH3YGGV2ogmkJMNrPmeWKkaujkW1fiEqIOmiKw")
+    fun getPhotos(): Call<List<Photo>>
+
+    @GET("/search/photos?&per_page=100&client_id=3IgfYBH3YGGV2ogmkJMNrPmeWKkaujkW1fiEqIOmiKw")
+    fun getCat(@Query("query") query: String): Call<PhotoByQuery>
+    //do not include that parameter in GET url simply pass the query with the name
+    //You don't need to include query parameter in your GET Annotation
 
 }
