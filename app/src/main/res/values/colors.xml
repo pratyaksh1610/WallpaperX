@@ -9,4 +9,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bottomBarIconColor">#c8d0d6</color>
     <color name="neon">#80FF00</color>
+    <color name="yellow">#FFFB00</color>
+
+    <color name="green">#00FF0D</color>
+    <color name="blue">#0037FF</color>
+    <color name="orange">#FF7300</color>
+    <color name="red">#FF0000</color>
+    <color name="pink">#FF0070</color>
+
+
+
 </resources>

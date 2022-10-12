@@ -20,4 +20,11 @@ interface ApiInterface {
     //do not include that parameter in GET url simply pass the query with the name
     //You don't need to include query parameter in your GET Annotation
 
+    @GET("/photos/?per_page=100&client_id=3IgfYBH3YGGV2ogmkJMNrPmeWKkaujkW1fiEqIOmiKw")
+    fun getPhotosBestOfMonth(
+        @Query("order_by") order_by: String = "latest",
+        @Query("orientation") orientation: String = "portrait"
+    ): Call<List<Photo>>
+
+
 }

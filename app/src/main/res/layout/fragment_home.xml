@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/search_button_background"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/search"
@@ -23,17 +23,20 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_search_24"
-            app:tint="#8D8E8F" />
+            app:tint="@color/white" />
 
         <EditText
             android:id="@+id/searchText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
             android:hint="Search"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
-            android:textSize="20sp" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

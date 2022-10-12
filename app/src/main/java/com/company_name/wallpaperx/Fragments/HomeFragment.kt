@@ -72,12 +72,14 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<PhotoByQuery?>, response: Response<PhotoByQuery?>) {
                 Log.e("success by category", "success by category")
                 val data = response.body()!!
+                if (data.results.isEmpty()) {
+                    Toast.makeText(requireContext(), "No results found", Toast.LENGTH_SHORT).show()
+                }
                 binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
                 val adapter = HomeAdapter(requireContext(), data.results)
                 binding.recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
-
             }
 
             override fun onFailure(call: Call<PhotoByQuery?>, t: Throwable) {
