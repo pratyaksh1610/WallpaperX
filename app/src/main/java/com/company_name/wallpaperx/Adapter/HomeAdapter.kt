@@ -1,6 +1,7 @@
 package com.company_name.wallpaperx.Adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,13 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.company_name.wallpaperx.DataClass.Photo
+import com.company_name.wallpaperx.Fragments.HomeFragment
 import com.company_name.wallpaperx.R
 
-class HomeAdapter(private val context: Context, private val dataFromApi: List<Photo>) :
+class HomeAdapter(
+    private val context: Context, private val dataFromApi: List<Photo>,
+    private val listener: OnClickImage
+) :
     RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -22,6 +27,20 @@ class HomeAdapter(private val context: Context, private val dataFromApi: List<Ph
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val curr = dataFromApi[position]
         Glide.with(context).load(curr.urls.full).into(holder.img)
+        holder.img.setOnClickListener {
+            curr.user.social.twitter_username.let {
+                curr.user.social.instagram_username.let {
+                    listener.onClickImg(
+                        curr.urls.full, curr.user.username,
+                        curr.user.username, curr.user.name
+                    )
+                }
+            }
+        }
+
+//        working below code
+//        Log.e("insta",curr.user.social.instagram_username)
+
 
     }
 
@@ -35,4 +54,8 @@ class HomeAdapter(private val context: Context, private val dataFromApi: List<Ph
     }
 
 
+}
+
+interface OnClickImage {
+    fun onClickImg(url: String, twitter: String, instagram: String, name: String)
 }

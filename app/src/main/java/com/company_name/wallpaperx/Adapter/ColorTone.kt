@@ -10,7 +10,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.company_name.wallpaperx.R
 
-class ColorTone(private val context: Context, private val colorData: List<String>) :
+
+class ColorTone(
+    private val context: Context, private val colorData: List<String>,
+    private val listener: OnClickColorTone
+) :
     RecyclerView.Adapter<ColorTone.ColorToneViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorToneViewHolder {
@@ -23,22 +27,44 @@ class ColorTone(private val context: Context, private val colorData: List<String
     override fun onBindViewHolder(holder: ColorToneViewHolder, position: Int) {
         when (colorData[position]) {
             "Y" -> {
-                holder.img.setBackgroundColor(Color.parseColor("#FFFB00"))
+                holder.img.setImageResource(R.drawable.yellow)
             }
             "G" -> {
-                holder.img.setBackgroundColor(Color.parseColor("#00FF0D"))
+                holder.img.setImageResource(R.drawable.green)
             }
             "B" -> {
-                holder.img.setBackgroundColor(Color.parseColor("#0037FF"))
+                holder.img.setImageResource(R.drawable.blue)
             }
             "O" -> {
-                holder.img.setBackgroundColor(Color.parseColor("#FF7300"))
+                holder.img.setImageResource(R.drawable.orange)
             }
             "R" -> {
-                holder.img.setBackgroundColor(Color.parseColor("#FF0000"))
+                holder.img.setImageResource(R.drawable.red)
             }
-            "V" -> {
-                holder.img.setBackgroundColor(Color.parseColor("#FF0070"))
+            "P" -> {
+                holder.img.setImageResource(R.drawable.pink)
+            }
+        }
+        holder.img.setOnClickListener {
+            when (position) {
+                0 -> {
+                    listener.onClickColorTone("Yellow")
+                }
+                1 -> {
+                    listener.onClickColorTone("Green")
+                }
+                2 -> {
+                    listener.onClickColorTone("Blue")
+                }
+                3 -> {
+                    listener.onClickColorTone("Orange")
+                }
+                4 -> {
+                    listener.onClickColorTone("Red")
+                }
+                5 -> {
+                    listener.onClickColorTone("Pink")
+                }
             }
         }
     }
@@ -51,4 +77,8 @@ class ColorTone(private val context: Context, private val colorData: List<String
         val img: ImageView = itemView.findViewById(R.id.img)
 
     }
+}
+
+interface OnClickColorTone {
+    fun onClickColorTone(color: String)
 }
