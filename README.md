@@ -25,6 +25,7 @@
 - LiveData
 - ViewModel
 - Recycler View
+- Retrofit
 
 ## 📸Screeshots
 
