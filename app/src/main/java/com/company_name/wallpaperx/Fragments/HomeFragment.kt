@@ -36,7 +36,7 @@ class HomeFragment : Fragment(), OnClickImage {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        Toast.makeText(requireContext(), "home fragment", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "home fragment", Toast.LENGTH_SHORT).show()
 
         retrofitBuilder = RetrofitInstance().initialiseRetrofitBuilderObject()
 

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,21 +15,23 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.GenericTransitionOptions.with
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.with
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
+import com.company_name.wallpaperx.SaveImages.ImgEntity
+import com.company_name.wallpaperx.SaveImages.ImgViewModel
 import com.company_name.wallpaperx.databinding.ActivityViewImageBinding
-import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.util.*
 
 
 class ViewImage : AppCompatActivity() {
     private lateinit var binding: ActivityViewImageBinding
+
+    private val viewModel: ImgViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class ViewImage : AppCompatActivity() {
 
         //load image which is clicked passed as intent
         //home , collection passed to refer to which fragment does it belong to
+
 
         val name: String = intent.getStringExtra("name").toString()
         val twitter: String = intent.getStringExtra("twitter").toString()
@@ -69,18 +73,33 @@ class ViewImage : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        binding.save.setOnClickListener {
+            val c: Date = Calendar.getInstance().time
+            val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
+            viewModel.insertImg(
+                ImgEntity(
+                    null,
+                    intent.getStringExtra("url").toString(),
+                    df.format(c).toString()
+                )
+            )
+
+            Toast.makeText(this, "Saved to favourites \uD83C\uDF89", Toast.LENGTH_SHORT)
+                .show()
+
+
+        }
+
         binding.download.setOnClickListener {
             saveImg(binding.img)
         }
-        val wallpaperManager = WallpaperManager.getInstance(applicationContext)
 
-        val img = intent.getStringExtra("url").toString()
         binding.setAsBackground.setOnClickListener {
 
             val bitmap = getBitmapOfImgView(binding.img)
-
-
             val wallpaperManager = WallpaperManager.getInstance(this)
+
             try {
                 wallpaperManager.setBitmap(bitmap)
                 Toast.makeText(this, "Wallpaper set successfully \uD83C\uDF89", Toast.LENGTH_SHORT)

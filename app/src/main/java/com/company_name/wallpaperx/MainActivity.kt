@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Toast.makeText(applicationContext, "Reached main activity", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, "Reached main activity", Toast.LENGTH_SHORT).show()
 
         //initially mark home as default
         binding.homeImg.setColorFilter(getColor(R.color.neon))

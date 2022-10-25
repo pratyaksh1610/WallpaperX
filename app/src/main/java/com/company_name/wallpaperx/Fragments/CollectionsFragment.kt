@@ -23,22 +23,37 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CollectionsFragment : Fragment(), OnClickImage,OnClickColorTone {
+class CollectionsFragment : Fragment(), OnClickImage, OnClickColorTone {
+
     private lateinit var binding: FragmentCollectionsBinding
     private lateinit var retrofitBuilder: ApiInterface
     private var colorTone = ArrayList<String>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Toast.makeText(requireContext(), "collection fragment", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "collection fragment", Toast.LENGTH_SHORT).show()
         binding = FragmentCollectionsBinding.inflate(layoutInflater, container, false)
 
         retrofitBuilder = RetrofitInstance().initialiseRetrofitBuilderObject()
 
         passDataToColorToneAdapterForImageColor()
         showBestOfMonth()
+
+        binding.nature.setOnClickListener{
+            onClickColorTone("Nature")
+        }
+        binding.abstract1.setOnClickListener{
+            onClickColorTone("Abstract")
+        }
+        binding.photography.setOnClickListener{
+            onClickColorTone("Photography")
+        }
+        binding.technology.setOnClickListener{
+            onClickColorTone("Technology")
+        }
 
         return binding.root
     }
@@ -52,7 +67,7 @@ class CollectionsFragment : Fragment(), OnClickImage,OnClickColorTone {
 
                 binding.recyclerViewBestOfMonth.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                val adapter = HomeAdapter(requireContext(), response,this@CollectionsFragment)
+                val adapter = HomeAdapter(requireContext(), response, this@CollectionsFragment)
                 binding.recyclerViewBestOfMonth.adapter = adapter
 
             }
@@ -73,7 +88,7 @@ class CollectionsFragment : Fragment(), OnClickImage,OnClickColorTone {
         colorTone.add("P")
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val adapter = ColorTone(requireContext(), colorTone,this@CollectionsFragment)
+        val adapter = ColorTone(requireContext(), colorTone, this@CollectionsFragment)
         binding.recyclerView.adapter = adapter
 
     }
@@ -87,15 +102,15 @@ class CollectionsFragment : Fragment(), OnClickImage,OnClickColorTone {
         val i = Intent(requireContext(), ViewImage::class.java)
         i.putExtra("url", url)
         i.putExtra("home", "home")
-        i.putExtra("twitter",twitter)
-        i.putExtra("instagram",instagram)
-        i.putExtra("name",name)
+        i.putExtra("twitter", twitter)
+        i.putExtra("instagram", instagram)
+        i.putExtra("name", name)
         startActivity(i)
     }
 
     override fun onClickColorTone(color: String) {
-        val i = Intent(requireContext(),ViewImageColorTone::class.java)
-        i.putExtra("color",color)
+        val i = Intent(requireContext(), ViewImageColorTone::class.java)
+        i.putExtra("color", color)
         startActivity(i)
     }
 

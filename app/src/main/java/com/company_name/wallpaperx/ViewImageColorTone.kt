@@ -31,18 +31,25 @@ class ViewImageColorTone : AppCompatActivity(), OnClickImage {
 
         val color = intent.getStringExtra("color").toString()
         Log.e("c", color)
-        if (color == "Blue") {
-            binding.img.setImageResource(R.drawable.blue)
-        } else if (color == "Yellow") {
-            binding.img.setImageResource(R.drawable.yellow)
-        } else if (color == "Green") {
-            binding.img.setImageResource(R.drawable.green)
-        } else if (color == "Red") {
-            binding.img.setImageResource(R.drawable.red)
-        } else if (color == "Orange") {
-            binding.img.setImageResource(R.drawable.orange)
-        } else if (color == "Pink") {
-            binding.img.setImageResource(R.drawable.pink)
+        when (color) {
+            "Blue" -> {
+                binding.img.setImageResource(R.drawable.blue)
+            }
+            "Yellow" -> {
+                binding.img.setImageResource(R.drawable.yellow)
+            }
+            "Green" -> {
+                binding.img.setImageResource(R.drawable.green)
+            }
+            "Red" -> {
+                binding.img.setImageResource(R.drawable.red)
+            }
+            "Orange" -> {
+                binding.img.setImageResource(R.drawable.orange)
+            }
+            "Pink" -> {
+                binding.img.setImageResource(R.drawable.pink)
+            }
         }
 
         binding.colorText.text = color
@@ -86,9 +93,9 @@ class ViewImageColorTone : AppCompatActivity(), OnClickImage {
         val i = Intent(this@ViewImageColorTone, ViewImage::class.java)
         i.putExtra("url", url)
         i.putExtra("home", "home")
-        i.putExtra("twitter",twitter)
-        i.putExtra("instagram",instagram)
-        i.putExtra("name",name)
+        i.putExtra("twitter", twitter)
+        i.putExtra("instagram", instagram)
+        i.putExtra("name", name)
         startActivity(i)
     }
 }
