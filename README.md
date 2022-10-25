@@ -15,6 +15,7 @@
 * Category - Choose wallpaper as per the category.
 * Search - Search your favourite wallpaper using the search tab.
 * Color tone -  View wallpapers as per the colour tone.
+* Delete - Delete from favourites on a single click.
 
 ## 🚀 Technology Used
 
