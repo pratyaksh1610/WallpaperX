@@ -26,6 +26,7 @@
 - ViewModel
 - Recycler View
 - Retrofit
+- Glide
 
 ## 📸Screeshots
 
