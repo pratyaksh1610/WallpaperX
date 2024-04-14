@@ -73,19 +73,16 @@ class HomeFragment : Fragment(), OnClickImage {
     private fun getDataCategory(category: String) {
         GlobalScope.launch(Dispatchers.Main) {
             val retrofitData = retrofitBuilder.getCat(category)
-            if (retrofitData.isSuccessful) {
+            if (retrofitData.isSuccessful && retrofitData.body()!!.results.isNotEmpty()) {
                 Log.e("success by category", "success by category")
                 val data = retrofitData.body()!!
-                if (data.results.isEmpty()) {
-                    Toast.makeText(requireContext(), "No results found", Toast.LENGTH_SHORT).show()
-                }
 
                 binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
                 val adapter = HomeAdapter(requireContext(), data.results, this@HomeFragment)
                 binding.recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             } else {
-
+                Toast.makeText(requireContext(), "No results found", Toast.LENGTH_SHORT).show()
                 Log.e("error by category", "error  by category")
             }
 
