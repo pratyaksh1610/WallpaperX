@@ -14,6 +14,9 @@ import com.company_name.wallpaperx.DataClass.PhotoByQuery
 import com.company_name.wallpaperx.Retrofit.ApiInterface
 import com.company_name.wallpaperx.Retrofit.RetrofitInstance
 import com.company_name.wallpaperx.databinding.ActivityViewImageColorToneBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,18 +38,23 @@ class ViewImageColorTone : AppCompatActivity(), OnClickImage {
             "Blue" -> {
                 binding.img.setImageResource(R.drawable.blue)
             }
+
             "Yellow" -> {
                 binding.img.setImageResource(R.drawable.yellow)
             }
+
             "Green" -> {
                 binding.img.setImageResource(R.drawable.green)
             }
+
             "Red" -> {
                 binding.img.setImageResource(R.drawable.red)
             }
+
             "Orange" -> {
                 binding.img.setImageResource(R.drawable.orange)
             }
+
             "Pink" -> {
                 binding.img.setImageResource(R.drawable.pink)
             }
@@ -67,13 +75,11 @@ class ViewImageColorTone : AppCompatActivity(), OnClickImage {
     }
 
     private fun getDataCategory(category: String) {
-        val retrofitData = retrofitBuilder.getCat(category)
-
-        retrofitData.enqueue(object : Callback<PhotoByQuery?> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<PhotoByQuery?>, response: Response<PhotoByQuery?>) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val retrofitData = retrofitBuilder.getCat(category)
+            if (retrofitData.isSuccessful) {
                 Log.e("success by category", "success by category")
-                val data = response.body()!!
+                val data = retrofitData.body()!!
 
                 binding.recyclerView.layoutManager = GridLayoutManager(this@ViewImageColorTone, 2)
 
@@ -81,12 +87,12 @@ class ViewImageColorTone : AppCompatActivity(), OnClickImage {
                     HomeAdapter(this@ViewImageColorTone, data.results, this@ViewImageColorTone)
                 binding.recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
+            } else {
+                Log.e("error by category", "error  by category")
+
             }
 
-            override fun onFailure(call: Call<PhotoByQuery?>, t: Throwable) {
-                Log.e("error by category", "error  by category")
-            }
-        })
+        }
     }
 
     override fun onClickImg(url: String, twitter: String, instagram: String, name: String) {

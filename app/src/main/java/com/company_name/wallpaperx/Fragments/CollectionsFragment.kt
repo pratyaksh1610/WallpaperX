@@ -19,6 +19,9 @@ import com.company_name.wallpaperx.Retrofit.RetrofitInstance
 import com.company_name.wallpaperx.ViewImage
 import com.company_name.wallpaperx.ViewImageColorTone
 import com.company_name.wallpaperx.databinding.FragmentCollectionsBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,24 +62,20 @@ class CollectionsFragment : Fragment(), OnClickImage, OnClickColorTone {
     }
 
     private fun showBestOfMonth() {
-        val retrofit = retrofitBuilder.getPhotosBestOfMonth()
-
-        retrofit.enqueue(object : Callback<List<Photo>?> {
-            override fun onResponse(call: Call<List<Photo>?>, response: Response<List<Photo>?>) {
-                val response = response.body()!!
+        GlobalScope.launch(Dispatchers.Main) {
+            val retrofitData = retrofitBuilder.getPhotosBestOfMonth()
+            if(retrofitData.isSuccessful) {
+                val response = retrofitData.body()!!
 
                 binding.recyclerViewBestOfMonth.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 val adapter = HomeAdapter(requireContext(), response, this@CollectionsFragment)
                 binding.recyclerViewBestOfMonth.adapter = adapter
-
-            }
-
-            override fun onFailure(call: Call<List<Photo>?>, t: Throwable) {
+            }else{
                 Log.e("best of month", "error")
-            }
-        })
 
+            }
+        }
     }
 
     private fun passDataToColorToneAdapterForImageColor() {

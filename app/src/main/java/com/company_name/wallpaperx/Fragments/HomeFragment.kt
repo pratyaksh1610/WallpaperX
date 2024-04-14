@@ -20,6 +20,9 @@ import com.company_name.wallpaperx.Retrofit.ApiInterface
 import com.company_name.wallpaperx.Retrofit.RetrofitInstance
 import com.company_name.wallpaperx.ViewImage
 import com.company_name.wallpaperx.databinding.FragmentHomeBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,13 +71,11 @@ class HomeFragment : Fragment(), OnClickImage {
     }
 
     private fun getDataCategory(category: String) {
-        val retrofitData = retrofitBuilder.getCat(category)
-
-        retrofitData.enqueue(object : Callback<PhotoByQuery?> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<PhotoByQuery?>, response: Response<PhotoByQuery?>) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val retrofitData = retrofitBuilder.getCat(category)
+            if (retrofitData.isSuccessful) {
                 Log.e("success by category", "success by category")
-                val data = response.body()!!
+                val data = retrofitData.body()!!
                 if (data.results.isEmpty()) {
                     Toast.makeText(requireContext(), "No results found", Toast.LENGTH_SHORT).show()
                 }
@@ -83,43 +84,38 @@ class HomeFragment : Fragment(), OnClickImage {
                 val adapter = HomeAdapter(requireContext(), data.results, this@HomeFragment)
                 binding.recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
-            }
+            } else {
 
-            override fun onFailure(call: Call<PhotoByQuery?>, t: Throwable) {
                 Log.e("error by category", "error  by category")
             }
-        })
+
+        }
     }
 
     private fun getDataHomeFragment() {
-        val retrofitData = retrofitBuilder.getPhotos()
 
-        retrofitData.enqueue(object : Callback<List<Photo>?> {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onResponse(call: Call<List<Photo>?>, response: Response<List<Photo>?>) {
-                Log.e("success by featured", "success by featured")
-
-                val data = response.body()!!
+        GlobalScope.launch(Dispatchers.Main) {
+            val res = RetrofitInstance().initialiseRetrofitBuilderObject().getPhotos()
+            if (res.isSuccessful) {
+                val data = res.body()!!
                 binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
                 val adapter = HomeAdapter(requireContext(), data, this@HomeFragment)
                 binding.recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
-            }
-
-            override fun onFailure(call: Call<List<Photo>?>, t: Throwable) {
+            } else {
                 Log.e("error by featured", "error by featured")
             }
-        })
+        }
     }
 
     override fun onClickImg(url: String, twitter: String, instagram: String, name: String) {
         val i = Intent(requireContext(), ViewImage::class.java)
         i.putExtra("url", url)
         i.putExtra("home", "home")
-        i.putExtra("twitter",twitter)
-        i.putExtra("instagram",instagram)
-        i.putExtra("name",name)
+        i.putExtra("twitter", twitter)
+        i.putExtra("instagram", instagram)
+        i.putExtra("name", name)
         startActivity(i)
     }
 
