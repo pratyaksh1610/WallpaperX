@@ -9,7 +9,7 @@ import androidx.room.Query
 class repository(private val dao: ImgDao) {
 
 
-    fun insertImg(obj: ImgEntity) {
+    suspend fun insertImg(obj: ImgEntity) {
         dao.insertImg(obj)
     }
 
@@ -17,7 +17,7 @@ class repository(private val dao: ImgDao) {
         return dao.getAllImages()
     }
 
-    fun deleteImg(obj: ImgEntity) {
+    suspend fun deleteImg(obj: ImgEntity) {
         dao.deleteImg(obj)
     }
 

@@ -45,16 +45,16 @@ class CollectionsFragment : Fragment(), OnClickImage, OnClickColorTone {
         passDataToColorToneAdapterForImageColor()
         showBestOfMonth()
 
-        binding.nature.setOnClickListener{
+        binding.nature.setOnClickListener {
             onClickColorTone("Nature")
         }
-        binding.abstract1.setOnClickListener{
+        binding.abstract1.setOnClickListener {
             onClickColorTone("Abstract")
         }
-        binding.photography.setOnClickListener{
+        binding.photography.setOnClickListener {
             onClickColorTone("Photography")
         }
-        binding.technology.setOnClickListener{
+        binding.technology.setOnClickListener {
             onClickColorTone("Technology")
         }
 
@@ -64,14 +64,14 @@ class CollectionsFragment : Fragment(), OnClickImage, OnClickColorTone {
     private fun showBestOfMonth() {
         GlobalScope.launch(Dispatchers.Main) {
             val retrofitData = retrofitBuilder.getPhotosBestOfMonth()
-            if(retrofitData.isSuccessful) {
+            if (retrofitData.isSuccessful) {
                 val response = retrofitData.body()!!
 
                 binding.recyclerViewBestOfMonth.layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 val adapter = HomeAdapter(requireContext(), response, this@CollectionsFragment)
                 binding.recyclerViewBestOfMonth.adapter = adapter
-            }else{
+            } else {
                 Log.e("best of month", "error")
 
             }
@@ -89,11 +89,6 @@ class CollectionsFragment : Fragment(), OnClickImage, OnClickColorTone {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val adapter = ColorTone(requireContext(), colorTone, this@CollectionsFragment)
         binding.recyclerView.adapter = adapter
-
-    }
-
-    private fun getDataColorTone() {
-
 
     }
 

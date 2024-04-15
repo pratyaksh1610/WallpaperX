@@ -52,14 +52,6 @@ class FavouritesFragment : Fragment(), OnClick {
     }
 
     override fun onImgClick(obj: ImgEntity) {
-
-        //passing data between fragments
-//        val fragment = ViewFavouritesImg()
-//        val args = Bundle()
-//        args.putString("url", obj.url)
-//        args.putString("date", obj.date)
-//        fragment.arguments = args
-//
         val i = Intent(requireContext(), ViewFavouritesImg::class.java)
         i.putExtra("url", obj.url)
         i.putExtra("date", obj.date)

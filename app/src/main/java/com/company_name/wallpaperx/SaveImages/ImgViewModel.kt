@@ -3,8 +3,11 @@ package com.company_name.wallpaperx.SaveImages
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ImgViewModel(application: Application):AndroidViewModel(application) {
+class ImgViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val repo: repository
@@ -15,7 +18,9 @@ class ImgViewModel(application: Application):AndroidViewModel(application) {
     }
 
     fun insertImg(obj: ImgEntity) {
-        repo.insertImg(obj)
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.insertImg(obj)
+        }
     }
 
     fun getAllImages(): LiveData<List<ImgEntity>> {
@@ -23,7 +28,9 @@ class ImgViewModel(application: Application):AndroidViewModel(application) {
     }
 
     fun deleteImg(obj: ImgEntity) {
-        repo.deleteImg(obj)
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.deleteImg(obj)
+        }
     }
 
 

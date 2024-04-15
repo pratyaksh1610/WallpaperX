@@ -2,9 +2,6 @@
 
 ## 📱 WallpaperX Android App made using Kotlin
 
-***You can Install and test latest app below 👇*** <br> 
-### Get it now [Download APK](https://raw.githubusercontent.com/pratyaksh1610/WallpaperX/main/app/app-debug.apk)
-
 ------------
 
 ## ⚙️ Features
