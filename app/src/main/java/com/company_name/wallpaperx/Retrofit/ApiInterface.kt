@@ -18,8 +18,6 @@ interface ApiInterface {
 
     @GET("/search/photos?&per_page=100&client_id=3IgfYBH3YGGV2ogmkJMNrPmeWKkaujkW1fiEqIOmiKw")
     suspend fun getCat(@Query("query") query: String): Response<PhotoByQuery>
-    //do not include that parameter in GET url simply pass the query with the name
-    //You don't need to include query parameter in your GET Annotation
 
     @GET("/photos/?per_page=100&client_id=3IgfYBH3YGGV2ogmkJMNrPmeWKkaujkW1fiEqIOmiKw")
     suspend fun getPhotosBestOfMonth(
